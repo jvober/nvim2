@@ -55,6 +55,7 @@ and how to set up on different platforms (Linux, macOS, and Windows).
 + Better escaping from insert mode via [better-escape.vim](https://github.com/nvim-zh/better-escape.vim).
 + Ultra-fast project-wide fuzzy searching via [fzf-lua](https://github.com/ibhagwan/fzf-lua).
 + Faster code commenting via [vim-commentary](https://github.com/tpope/vim-commentary).
++ Quick open-buffer switching via [Nvim-Switch-Buffer](https://github.com/Yohannfra/Nvim-Switch-Buffer).
 + Faster matching pair insertion and jump via [nvim-autopairs](https://github.com/windwp/nvim-autopairs).
 + Smarter and faster matching pair management (add, replace or delete) via [vim-sandwich](https://github.com/machakann/vim-sandwich).
 + Fast buffer jump via [hop.nvim](https://github.com/smoka7/hop.nvim).
@@ -128,7 +129,8 @@ Some of the shortcuts I use frequently are listed here. In the following shortcu
 | `<leader>fg`      | Normal        | Linux/macOS/Win | Fuzzy project-wide grepping in a floating window                         |
 | `<leader>ft`      | Normal        | Linux/macOS/Win | Fuzzy buffer tag searching in a floating window                          |
 | `<leader>fb`      | Normal        | Linux/macOS/Win | Fuzzy buffer switching in a floating window                              |
-| `<leader><Space>` | Normal        | Linux/macOS/Win | Remove trailing white spaces                                             |
+| `S`               | Normal        | Linux/macOS/Win | Switch between open buffers                                               |
+| `<leader><Space>` | Normal        | Linux/macOS/Win | Remove trailing white spaces                                              |
 | `<leader>v`       | Normal        | Linux/macOS/Win | Reselect last pasted text                                                |
 | `<leader>ev`      | Normal        | Linux/macOS/Win | Edit Nvim config in a new tabpage                                        |
 | `<leader>sv`      | Normal        | Linux/macOS/Win | Reload Nvim config                                                       |

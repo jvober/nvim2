@@ -179,6 +179,7 @@ local plugin_specs = {
     ft = { "markdown" },
   },
   -- A list of colorscheme plugin you may want to try. Find what suits you.
+  { "markvincze/panda-vim", lazy = true, colors = { "panda" } },
   { "navarasu/onedark.nvim", lazy = true },
   { "sainnhe/edge", lazy = true },
   { "sainnhe/sonokai", lazy = true },
@@ -236,6 +237,14 @@ local plugin_specs = {
     cond = firenvim_not_active,
     config = function()
       require("config.bufferline")
+    end,
+  },
+  {
+    "Yohannfra/Nvim-Switch-Buffer",
+    name = "nvim-switch-buffer",
+    cmd = "SwitchBuffer",
+    init = function()
+      vim.o.switchbuf = "usetab"
     end,
   },
 

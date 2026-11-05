@@ -246,10 +246,10 @@ keymap.set("n", "Q", "@q", { noremap = true, desc = "Play macro @q" })
 
 -- Switch buffer (Nvim-Switch-Buffer)
 keymap.set("n", "S", ":SwitchBuffer<CR>", { noremap = true, silent = true, desc = "Switch buffer" })
+keymap.set("n", "<F4>", ":SwitchBuffer<CR>", { noremap = true, silent = true, desc = "Switch buffer" })
 
 keymap.set("n", "<Esc>", function()
   vim.cmd("fclose!")
 end, {
   desc = "close floating win",
 })
-
