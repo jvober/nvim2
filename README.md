@@ -46,6 +46,13 @@ No effort is spent on maintaining backward compatibility.**
 See [doc here](docs/README.md) on how to install Nvim's dependencies, Nvim itself,
 and how to set up on different platforms (Linux, macOS, and Windows).
 
+The Python provider uses the config-local `.venv` interpreter (`Scripts\python.exe`
+on Windows or `bin/python3` on Linux/macOS), with `C:\Python313\python.exe` as the
+Windows fallback. Install `pynvim` in that interpreter. An explicit
+`g:python3_host_prog` set before startup takes precedence.
+Go, Lua, and Python language servers are optional: they are enabled when their
+configured executables are available, without startup warnings when absent.
+
 # Features #
 
 + Plugin management via [Lazy.nvim](https://github.com/folke/lazy.nvim).

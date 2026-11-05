@@ -5,14 +5,24 @@ vim.g.log_level = logging.get_log_level()
 
 -- python3_host_prog is needed for python plugins, see also https://jdhao.github.io/2026/05/11/nvim_python_provider_setup/
 local config_path = vim.fn.stdpath("config")
-local python3_path = vim.fs.joinpath(config_path, ".venv/bin/python3")
-if not vim.uv.fs_stat(python3_path) then
-  local msg = string.format(
-    "Python provider missing:\n  create a virtual env under nvim config and install pynvim!"
-  )
-  vim._log(msg, vim.log.levels.WARN)
-else
+local is_win = utils.has("win32") or utils.has("win64")
+local python3_path = is_win
+    and vim.fs.joinpath(config_path, ".venv", "Scripts", "python.exe")
+  or vim.fs.joinpath(config_path, ".venv", "bin", "python3")
+if is_win and not utils.executable(python3_path) then
+  python3_path = [[C:\Python313\python.exe]]
+end
+python3_path = vim.g.python3_host_prog or python3_path
+if utils.executable(python3_path) then
   vim.g.python3_host_prog = python3_path
+else
+  vim._log(
+    string.format(
+      "Python provider interpreter not found: %s\n  Create a config .venv and install pynvim, or set g:python3_host_prog.",
+      python3_path
+    ),
+    vim.log.levels.WARN
+  )
 end
 
 ------------------------------------------------------------------------

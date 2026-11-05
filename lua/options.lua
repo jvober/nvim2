@@ -1,7 +1,5 @@
 local utils = require("utils")
 
--- Set Python 3 host program for UltiSnips and Python plugins
-vim.g.python3_host_prog = "c:/Python313/python.exe"  -- TODO: Replace with your actual Python path
 local symbol_icon = require("symbol_icon")
 
 local fn = vim.fn
@@ -165,7 +163,7 @@ opt.undofile = true
 -- choice, IMHO.
 opt.shortmess:append("cS")
 
-opt.messagesopt = "hit-enter,history:500,progress:c"
+opt.messagesopt = "history:500,progress:c,wait:0"
 
 -- Completion behaviour
 opt.completeopt:append("menuone") -- Show menu even if there is only one item
