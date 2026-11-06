@@ -253,3 +253,147 @@ keymap.set("n", "<Esc>", function()
 end, {
   desc = "close floating win",
 })
+
+-- Backup section 7 bindings; conflicts with existing keys use <leader>7.
+local function toggle_show_whitespace()
+  vim.wo.list = not vim.wo.list
+  print(vim.wo.list and "show Whitespace" or "hide Whitespace")
+end
+
+keymap.set("n", ";u", "<cmd>source $MYVIMRC<cr>", { silent = true, desc = "Reload init.lua" })
+keymap.set("n", ";v", "<cmd>edit $MYVIMRC<cr>", { silent = true, desc = "Edit init.lua" })
+
+keymap.set("n", "<F2>", "<cmd>write!<cr>", { desc = "Save buffer" })
+keymap.set("n", "<F3>", "<cmd>bdelete!<cr>", { desc = "Close buffer" })
+keymap.set("n", "<A-q>", "<cmd>bdelete!<cr>", { desc = "Close buffer" })
+keymap.set("n", ";q", "<cmd>quit!<cr>", { silent = true, desc = "Quit window" })
+keymap.set("c", "w!!", "w !sudo tee %", { desc = "Sudo write" })
+
+keymap.set("n", "<F12>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+keymap.set("n", "<C-Right>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+keymap.set("n", "<C-Left>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+keymap.set("n", ";p", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
+keymap.set("n", ";bn", "<cmd>bnext<cr>", { silent = true, desc = "Next buffer" })
+keymap.set("n", ";n", "<cmd>tabnew<cr>", { silent = true, desc = "New tab" })
+
+keymap.set("n", "<F5>", "*", { desc = "Search word forward" })
+keymap.set("n", "<S-F5>", "#", { desc = "Search word backward" })
+keymap.set("n", "<S-F7>", function()
+  local word = vim.fn.escape(vim.fn.expand("<cword>"), [[\/]])
+  vim.cmd("vimgrep! /\\V" .. word .. "/j **")
+  vim.cmd.cwindow()
+end, { desc = "Search current word in files" })
+
+keymap.set("n", "<leader>7<F9>", function()
+  vim.cmd("!python " .. vim.fn.shellescape(vim.fn.expand("%:p"), true))
+end, { desc = "Run current file with Python" })
+
+local single_tab = false
+keymap.set("n", "<S-F9>", function()
+  single_tab = not single_tab
+  if single_tab then
+    vim.cmd.tabonly()
+  else
+    vim.cmd("tab ball")
+    vim.cmd.tabnext()
+  end
+end, { silent = true, desc = "Toggle single tab or tabs for all buffers" })
+
+keymap.set("n", "<F10>", function()
+  vim.bo.modifiable = not vim.bo.modifiable
+end, { desc = "Toggle buffer modifiable" })
+
+keymap.set("n", "<S-F11>", "<cmd>mksession! ~/vim_session<cr>", { desc = "Save session" })
+keymap.set("n", "<leader>7<F11>", "<cmd>source ~/vim_session<cr>", { desc = "Load session" })
+keymap.set("n", ";w", toggle_show_whitespace, { silent = true, desc = "Toggle whitespace" })
+keymap.set("n", "<A-F12>", toggle_show_whitespace, { desc = "Toggle whitespace" })
+keymap.set("n", "<C-F12>", function()
+  vim.cmd("write!")
+  vim.cmd("!aspell check " .. vim.fn.shellescape(vim.fn.expand("%:p"), true))
+  vim.cmd("edit!")
+end, { desc = "Check spelling with Aspell" })
+
+keymap.set("n", "<leader>7H", function()
+  vim.o.hlsearch = not vim.o.hlsearch
+end, { silent = true, desc = "Toggle search highlighting" })
+keymap.set("n", "<leader>7N", function()
+  vim.wo.number = not vim.wo.number
+end, { silent = true, desc = "Toggle line numbers" })
+keymap.set("n", ";m", "<cmd>marks<cr>", { silent = true, desc = "Show marks" })
+keymap.set("n", ";dm", "<cmd>delmarks A-Z0-9<cr>", { silent = true, desc = "Delete global and numbered marks" })
+keymap.set({ "n", "v" }, "<leader>7p", "%", { desc = "Jump to matching bracket" })
+keymap.set("n", "<C-a>", "<cmd>%yank +<cr>", { desc = "Yank buffer to clipboard" })
+keymap.set("n", "<S-CR>", "o<Esc>", { desc = "New line below" })
+keymap.set("n", "<C-CR>", "@q", { desc = "Play macro @q" })
+keymap.set("n", ";as", "gggqG", { silent = true, desc = "Format buffer" })
+keymap.set("n", ";gs", "<cmd>!git status<cr>", { silent = true, desc = "Git status" })
+
+if vim.g.is_win then
+  keymap.set("n", ";dl", [[<cmd>!start c:\jmv\bat\dellog.bat<cr>]], {
+    silent = true,
+    desc = "Delete log files",
+  })
+  keymap.set("n", ";0", function()
+    vim.o.guifont = "Consolas:h11"
+  end, { silent = true, desc = "Font Consolas 11" })
+  keymap.set("n", ";5", function()
+    vim.o.guifont = "Courier_New:h9"
+  end, { silent = true, desc = "Font Courier 9" })
+end
+
+keymap.set("n", ";b", function()
+  vim.o.background = vim.o.background == "light" and "dark" or "light"
+end, { silent = true, desc = "Toggle dark/light background" })
+keymap.set("n", ";M", "<cmd>setlocal noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<cr>", {
+  silent = true,
+  desc = "Mixed tabs",
+})
+keymap.set("n", ";3", "<cmd>setlocal expandtab tabstop=3 shiftwidth=2<cr>", {
+  silent = true,
+  desc = "Mini tabs",
+})
+keymap.set("n", ";4", "<cmd>setlocal expandtab tabstop=4 shiftwidth=4<cr>", {
+  silent = true,
+  desc = "Normal tabs",
+})
+keymap.set("n", ";8", "<cmd>setlocal expandtab tabstop=8 shiftwidth=8<cr>", {
+  silent = true,
+  desc = "Big tabs",
+})
+keymap.set("n", ";rb", function()
+  return ":Rename " .. vim.fn.fnameescape(vim.fn.expand("%"))
+end, { expr = true, desc = "Rename buffer" })
+
+keymap.set("n", "<leader>7gv", "<cmd>vimgrep /fail/g %<cr><cmd>cwindow<cr>", {
+  silent = true,
+  desc = "Search fail in buffer",
+})
+keymap.set("n", "<leader>7gt", "<cmd>vimgrep /Traceback/g %<cr><cmd>cwindow<cr>", {
+  silent = true,
+  desc = "Search Traceback in buffer",
+})
+keymap.set("n", "<leader>7gd", "<cmd>vimgrep /There w/g %<cr><cmd>cwindow<cr>", {
+  silent = true,
+  desc = "Search There w in buffer",
+})
+keymap.set("n", "<leader>7gc", "<cmd>g/SysFailLTest/d<cr>", {
+  silent = true,
+  desc = "Delete SysFailLTest lines",
+})
+keymap.set("n", "<leader>7ga", "<cmd>g/Seen branch in repository/d<cr>", {
+  silent = true,
+  desc = "Delete Seen branch lines",
+})
+keymap.set("n", "<leader>7gs", [[<cmd>%s/^.\{0,27\}//<cr>]], {
+  silent = true,
+  desc = "Strip Jenkins timestamps",
+})
+keymap.set("n", "<leader>h", "<cmd>g/Requirement already satisfied/d<cr>", {
+  silent = true,
+  desc = "Delete pip satisfied lines",
+})
+keymap.set("n", "<leader>H", function()
+  vim.wo.foldmethod = "manual"
+  vim.cmd("%foldopen!")
+  vim.cmd("v//normal! zf")
+end, { silent = true, desc = "Fold non-matching lines" })

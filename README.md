@@ -160,7 +160,7 @@ Some of the shortcuts I use frequently are listed here. In the following shortcu
 | `<leader>gb`      | Visual        | macOS           | Blame current line                                                       |
 | `<F9>`            | Normal        | Linux/macOS/Win | Compile&run current source file (for C++, LaTeX, Lua, Python)            |
 | `<F11>`           | Normal        | Linux/macOS/Win | Toggle spell checking                                                    |
-| `<F12>`           | Normal        | Linux/macOS/Win | Toggle paste mode                                                        |
+| `<F12>`           | Normal        | Linux/macOS/Win | Next buffer                                                              |
 | `\x`              | Normal        | Linux/macOS/Win | Close location or quickfix window                                        |
 | `\d`              | Normal        | Linux/macOS/Win | Close current buffer and go to previous buffer                           |
 | `{count}gb`       | Normal        | Linux/macOS/Win | Go to buffer `{count}` or next buffer in the buffer list.                |
@@ -172,6 +172,34 @@ Some of the shortcuts I use frequently are listed here. In the following shortcu
 | `jk`              | Insert        | Linux/macOS/Win | Return to Normal mode without lagging                                    |
 | `ZR`              | Normal        | Linux/macOS/Win | Restart nvim without quitting                                    |
 
+
+## Imported section 7 shortcuts
+
+The imported shortcuts retain literal `;` prefixes without changing the comma
+leader. Conflicting bindings are moved under `<leader>7`, preserving existing
+paste, navigation, commenting, spell-checking, and filetype-specific run mappings.
+
+| Shortcut | Action |
+|----------|--------|
+| `;u`, `;v` | Reload or edit init.lua |
+| `<F2>`, `<F3>` / `<A-q>` | Force-save or close buffer |
+| `<F12>` / `<C-Right>`, `<C-Left>` | Next or previous buffer |
+| `;p`, `;bn`, `;n`, `;q` | Previous buffer, next buffer, new tab, force-quit window |
+| `<F5>`, `<S-F5>`, `<S-F7>` | Search word forward, backward, or across files |
+| `<leader>7<F9>`, `<S-F9>` | Run Python file or toggle tabs for all buffers |
+| `<F10>` | Toggle buffer modifiability |
+| `<S-F11>`, `<leader>7<F11>` | Save or load `~/vim_session` |
+| `;w` / `<A-F12>`, `<C-F12>` | Toggle whitespace or run Aspell |
+| `<leader>7H`, `<leader>7N`, `<leader>7p` | Toggle search highlighting, line numbers, or jump to matching bracket |
+| `;m`, `;dm` | Show marks or delete global and numbered marks |
+| `<C-a>`, `<S-CR>`, `<C-CR>` / `Q` | Copy buffer to clipboard, insert line below, or play macro q |
+| `;as`, `;gs`, `;b`, `;rb` | Format buffer, Git status, toggle background, or prepare rename |
+| `;M`, `;3`, `;4`, `;8` | Set buffer-local tab/indent presets |
+| `;dl`, `;0`, `;5` | Windows: run log cleanup or choose GUI fonts |
+| `<leader>7gv`, `<leader>7gt`, `<leader>7gd` | Search buffer for fail, Traceback, or There w |
+| `<leader>7gc`, `<leader>7ga`, `<leader>7gs` | Delete SysFailLTest lines, delete Seen branch lines, or strip Jenkins timestamps |
+| `<leader>h`, `<leader>H` | Delete pip satisfied lines or fold non-matching lines |
+| Command-line `w!!` | Prepare a sudo write through tee (requires sudo) |
 
 # Custom commands
 
